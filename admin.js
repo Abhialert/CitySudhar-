@@ -1,60 +1,56 @@
-function timeAgo(timestamp) {
-    if (!timestamp) return "";
-    const seconds = Math.floor((Date.now() - timestamp) / 1000);
-    if (seconds < 60) return "just now";
-    const minutes = Math.floor(seconds / 60);
-    if (minutes < 60) return `${minutes}m ago`;
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours}h ago`;
-    return `${Math.floor(hours / 24)}d ago`;
-}
+const BASE_URL = "https://citysudhar-default-rtdb.asia-southeast1.firebasedatabase.app/";
+const DB_URL = `${BASE_URL}issues.json`;
 
-const adminIssueList = document.getElementById("adminIssueList");
-let issues = JSON.parse(localStorage.getItem("issues")) || [];
-
-function checkAuth() {
-    const id = prompt("Enter Admin ID:");
-    const pass = prompt("Enter Password:");
-
-    if (id === "admin123" && pass === "12345") {
-        renderAdminIssues();
+function authenticate() {
+    const id = prompt("Authority ID:");
+    const pass = prompt("Password:");
+    if (id === "admin" && pass === "city123") {
+        document.getElementById("adminPortalContent").style.display = "block";
+        loadAdminData();
     } else {
-        alert("Wrong ID or Password! Returning to home.");
+        alert("Access Denied");
         window.location.href = "index.html";
     }
 }
 
-function renderAdminIssues() {
-    adminIssueList.innerHTML = "";
-    if (issues.length === 0) {
-        adminIssueList.innerHTML = "<p style='text-align:center;'>No issues available.</p>";
-        return;
-    }
-    issues.forEach((issue, index) => {
-        const div = document.createElement("div");
-        div.className = "issue-card";
-        let buttons = "";
-        if (issue.status === "Pending") {
-            buttons = `<button onclick="updateStatus(${index}, 'In Progress')">Start Work</button>`;
-        } else if (issue.status === "In Progress") {
-            buttons = `<button onclick="updateStatus(${index}, 'Resolved')">Mark Resolved</button>`;
-        }
+function loadAdminData() {
+    const adminList = document.getElementById("adminIssueList");
+    if (!adminList) return;
 
-        div.innerHTML = `
-            <div class="issue-time">${timeAgo(issue.createdAt)}</div>
-            <h3>${issue.title}</h3>
-            <p><b>Category:</b> ${issue.category} | <b>Location:</b> ${issue.location}</p>
-            <p>${issue.description}</p>
-            <p class="status ${issue.status.replace(/\s/g, '')}">Status: ${issue.status}</p>
-            ${buttons}`;
-        adminIssueList.appendChild(div);
+    fetch(DB_URL)
+        .then(res => res.json())
+        .then(data => {
+            const issues = data ? Object.entries(data).map(([id, val]) => ({ ...val, id })).reverse() : [];
+            adminList.innerHTML = "";
+            
+            issues.forEach(issue => {
+                const isDeleted = issue.status === "Deleted";
+                const div = document.createElement("div");
+                div.className = "issue-card";
+                div.innerHTML = `
+                    <div class="issue-time">${new Date(issue.createdAt).toLocaleString()}</div>
+                    <h3>${issue.title} ${isDeleted ? '<span style="color:red; font-weight:800;">[DELETED]</span>' : ''}</h3>
+                    <p><b>Reporter:</b> ${issue.userName} | <b>Location:</b> ${issue.location}</p>
+                    <p><b>Status:</b> ${issue.status}</p>
+                    ${!isDeleted ? `
+                    <div style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button onclick="updateIssueStatus('${issue.id}', 'In Progress')" style="background:#2563eb; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">Set In Progress</button>
+                        <button onclick="updateIssueStatus('${issue.id}', 'Resolved')" style="background:#16a34a; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">Set Resolved</button>
+                        <button onclick="updateIssueStatus('${issue.id}', 'Deleted')" style="background:#dc2626; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer; margin-left:auto;">Delete</button>
+                    </div>` : '<p style="color:gray;">Removed from Citizen View</p>'}
+                `;
+                adminList.appendChild(div);
+            });
+        });
+}
+
+function updateIssueStatus(id, newStatus) {
+    fetch(`${BASE_URL}issues/${id}.json`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status: newStatus })
+    }).then(() => {
+        loadAdminData();
     });
 }
 
-function updateStatus(index, newStatus) {
-    issues[index].status = newStatus;
-    localStorage.setItem("issues", JSON.stringify(issues));
-    renderAdminIssues();
-}
-
-checkAuth();
+authenticate();
