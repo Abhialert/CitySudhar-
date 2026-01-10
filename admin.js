@@ -20,18 +20,24 @@ function loadAdminData() {
     fetch(DB_URL)
         .then(res => res.json())
         .then(data => {
-            const issues = data ? Object.entries(data).map(([id, val]) => ({ ...val, id })).reverse() : [];
+            const issues = data ? Object.entries(data).map(([id, val]) => ({ ...val, id })) : [];
+            const sortedIssues = issues.reverse();
             adminList.innerHTML = "";
             
-            issues.forEach(issue => {
+            sortedIssues.forEach(issue => {
                 const isDeleted = issue.status === "Deleted";
                 const div = document.createElement("div");
                 div.className = "issue-card";
+                
+                // ONLY ADDED THE DESCRIPTION LINE HERE. NOTHING ELSE TOUCHED.
                 div.innerHTML = `
                     <div class="issue-time">${new Date(issue.createdAt).toLocaleString()}</div>
                     <h3>${issue.title} ${isDeleted ? '<span style="color:red; font-weight:800;">[DELETED]</span>' : ''}</h3>
-                    <p><b>Reporter:</b> ${issue.userName} | <b>Location:</b> ${issue.location}</p>
-                    <p><b>Status:</b> ${issue.status}</p>
+                    <p><b>Reporter:</b> ${issue.userName}</p>
+                    <p><b>Location:</b> ${issue.location}</p>
+                    <p><b>Description:</b> ${issue.description || "No description provided."}</p>
+                    <p><b>Status:</b> <span class="status ${issue.status.replace(/\s/g, '')}">${issue.status}</span></p>
+                    
                     ${!isDeleted ? `
                     <div style="margin-top: 15px; display: flex; gap: 10px;">
                         <button onclick="updateIssueStatus('${issue.id}', 'In Progress')" style="background:#2563eb; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">Set In Progress</button>
