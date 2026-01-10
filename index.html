@@ -8,14 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <header class="header-section">
         <h1 class="brand-name">CitySudhar</h1>
         <p class="tagline">Report. Resolve. Relax.</p>
-        
         <div class="top-buttons">
             <a href="report.html">Report an Issue</a>
-            <a href="admin.html" style="background: #64748b;">Authority Portal</a>
+            <a href="admin.html" style="background: var(--secondary);">Authority Portal</a>
         </div>
     </header>
 
@@ -24,29 +22,24 @@
             <small>Total Issues</small>
             <div id="totalCount" style="font-size: 1.5rem; font-weight: 800;">0</div>
         </div>
-        
         <div class="summary-item pending">
             <small>Pending</small>
-            <div id="pendingCount" style="font-size: 1.5rem; font-weight: 800; color: #f59e0b;">0</div>
+            <div id="pendingCount" style="font-size: 1.5rem; font-weight: 800; color: var(--warning);">0</div>
         </div>
-        
         <div class="summary-item in-progress">
-            <small>Progress</small>
-            <div id="progressCount" style="font-size: 1.5rem; font-weight: 800; color: #2563eb;">0</div>
+            <small>In Progress</small>
+            <div id="progressCount" style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">0</div>
         </div>
-        
         <div class="summary-item resolved">
             <small>Resolved</small>
-            <div id="resolvedCount" style="font-size: 1.5rem; font-weight: 800; color: #16a34a;">0</div>
+            <div id="resolvedCount" style="font-size: 1.5rem; font-weight: 800; color: var(--success);">0</div>
         </div>
     </div>
 
-    <div id="issueList"></div>
+    <div id="issueList" class="issue-grid-container"></div>
 
     <footer class="footer-quote">
-        <p class="quote-text">
-            "I want to make this world a better place to live in... I don't want to be a silent spectator."
-        </p>
+        <p class="quote-text">"I want to make this world a better place to live in... I don't want to be a silent spectator."</p>
         <span class="quote-author">- Satyendra Dubey</span>
     </footer>
 
