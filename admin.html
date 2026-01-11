@@ -5,17 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authority Portal | CitySudhar</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* THEME - UNTOUCHED */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #cbd5e1; }
+
+        .header-section {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), 
+                        url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            padding: 80px 20px; text-align: center; color: white;
+        }
+        
+        .brand-name { 
+            font-size: 3.5rem; font-weight: 900; color: #2563eb; 
+            -webkit-text-stroke: 1.5px white; paint-order: stroke fill; stroke-linejoin: round;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5); margin-bottom: 20px;
+        }
+
+        .top-buttons a {
+            display: inline-block; padding: 12px 28px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; transition: 0.3s;
+            background: rgba(255,255,255,0.1); color: white; border: 2px solid white;
+        }
+
+        .top-buttons a:hover { background: white; color: #1e293b; }
+
+        #adminIssueList {
+            max-width: 900px; 
+            margin: 20px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column; 
+            gap: 25px; 
+        }
+
+        /* INCREASED HEIGHT & HIERARCHY FIX */
+        .admin-card {
+            background: white;
+            padding: 40px 35px; /* Increased padding to increase overall card height */
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            min-height: 320px; /* Ensures a consistent, taller height for all cards */
+        }
+
+        .admin-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px; /* Significant space after title */
+            color: #2563eb;
+            font-weight: 800;
+        }
+
+        .admin-card p {
+            margin-bottom: 15px; /* Increased line spacing between information fields */
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        /* STATUS AND BUTTONS ON THE SAME LEVEL AT THE BOTTOM */
+        [id^="actions-"] {
+            display: flex !important;
+            justify-content: space-between !important; /* Status (p) on left, Buttons on right */
+            align-items: center !important;
+            margin-top: auto; /* Pushes the entire action row to the bottom of the tall card */
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        /* Buttons grouping on the right */
+        .admin-card button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: 10px; /* Space between buttons */
+        }
+
+        .delete-btn { background: #ef4444; color: white; }
+        
+        .admin-card p:last-of-type {
+            margin-bottom: 0;
+            font-weight: 800;
+            color: #0f172a;
+        }
+    </style>
 </head>
 <body>
     <header class="header-section">
         <h1 class="brand-name">CitySudhar Authority Portal</h1>
         <div class="top-buttons">
-            <a href="index.html" style="background: var(--secondary);">Return Home</a>
+            <a href="index.html">Return Home</a>
         </div>
     </header>
 
     <div id="adminPortalContent" style="display: none;">
-        <div id="adminIssueList" style="max-width: 900px; margin: 20px auto; padding: 0 20px;"></div>
+        <div id="adminIssueList"></div>
     </div>
 
     <script src="admin.js"></script>
