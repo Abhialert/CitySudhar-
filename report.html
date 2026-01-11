@@ -6,6 +6,105 @@
     <title>Report Issue | CitySudhar</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* THEME INTEGRATION */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #cbd5e1; overflow-x: hidden; }
+
+        .header-section {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), 
+                        url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px 100px; 
+            text-align: center;
+            color: white;
+        }
+        
+        /* FIX FOR "t" OUTLINE CLIPPING */
+        .brand-name { 
+            font-size: 3.8rem; 
+            font-weight: 900; 
+            letter-spacing: -1px;
+            color: #2563eb; 
+            -webkit-text-stroke: 1.5px white;
+            paint-order: stroke fill;
+            stroke-linejoin: round;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+            margin-bottom: 10px;
+        }
+
+        .tagline { font-size: 1.2rem; color: white; font-weight: 600; }
+
+        .page-wrapper {
+            background-color: #cbd5e1; 
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            margin-top: -50px; /* Slight overlap for modern look */
+        }
+
+        /* FORM CARD STYLING */
+        .form-card {
+            background: white;
+            padding: 45px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 750px;
+            z-index: 10;
+        }
+
+        label { 
+            display: block; 
+            font-weight: 700; 
+            margin-bottom: 8px; 
+            color: #1e293b; 
+            margin-top: 15px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            margin-bottom: 5px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        /* SYNCED BUTTON HOVER EFFECT */
+        #submitBtn {
+            transition: all 0.3s ease;
+            border: 2px solid #2563eb !important;
+        }
+
+        #submitBtn:hover {
+            background: white !important;
+            color: #1e293b !important;
+            transform: translateY(-3px);
+            border-color: white !important;
+        }
+
+        .cancel-btn {
+            flex: 1;
+            text-align: center;
+            background: #e2e8f0;
+            color: #475569;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .cancel-btn:hover { background: #cbd5e1; }
+    </style>
 </head>
 <body>
     <header class="header-section">
@@ -16,7 +115,7 @@
     <main class="page-wrapper">
         <div class="form-card">
             <div id="formContent">
-                <h2 style="margin-top: 0; color: var(--primary); font-weight: 800;">Report New Issue</h2>
+                <h2 style="margin-top: 0; color: #2563eb; font-weight: 800; margin-bottom: 20px;">Report New Issue</h2>
                 <form id="issueForm">
                     <label>Full Name</label>
                     <input type="text" id="userName" placeholder="Enter your full name" required>
@@ -40,9 +139,9 @@
                     <label>Detailed Description</label>
                     <textarea id="description" rows="3" placeholder="Explain the issue..." required></textarea>
 
-                    <div style="display: flex; gap: 15px; margin-top: 10px;">
-                        <button type="submit" id="submitBtn" style="flex: 2; cursor: pointer; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 700;">Submit Report</button>
-                        <a href="index.html" style="flex: 1; text-align: center; background: #e2e8f0; color: #475569; text-decoration: none; padding: 14px; border-radius: 10px; font-weight: 600;">Cancel</a>
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <button type="submit" id="submitBtn" style="flex: 2; cursor: pointer; background: #2563eb; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 700;">Submit Report</button>
+                        <a href="index.html" class="cancel-btn">Cancel</a>
                     </div>
                 </form>
             </div>
@@ -57,6 +156,7 @@
             </div>
         </div>
     </main>
+
     <script src="app.js"></script>
 </body>
 </html>
