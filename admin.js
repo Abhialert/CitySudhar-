@@ -26,10 +26,12 @@ function loadAdminData() {
             
             sortedIssues.forEach(issue => {
                 const isDeleted = issue.status === "Deleted";
+                const isInProgress = issue.status === "In Progress";
+                const isResolved = issue.status === "Resolved";
+                
                 const div = document.createElement("div");
                 div.className = "issue-card";
                 
-                // ONLY ADDED THE DESCRIPTION LINE HERE. NOTHING ELSE TOUCHED.
                 div.innerHTML = `
                     <div class="issue-time">${new Date(issue.createdAt).toLocaleString()}</div>
                     <h3>${issue.title} ${isDeleted ? '<span style="color:red; font-weight:800;">[DELETED]</span>' : ''}</h3>
@@ -38,12 +40,19 @@ function loadAdminData() {
                     <p><b>Description:</b> ${issue.description || "No description provided."}</p>
                     <p><b>Status:</b> <span class="status ${issue.status.replace(/\s/g, '')}">${issue.status}</span></p>
                     
-                    ${!isDeleted ? `
                     <div style="margin-top: 15px; display: flex; gap: 10px;">
-                        <button onclick="updateIssueStatus('${issue.id}', 'In Progress')" style="background:#2563eb; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">Set In Progress</button>
-                        <button onclick="updateIssueStatus('${issue.id}', 'Resolved')" style="background:#16a34a; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">Set Resolved</button>
-                        <button onclick="updateIssueStatus('${issue.id}', 'Deleted')" style="background:#dc2626; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer; margin-left:auto;">Delete</button>
-                    </div>` : '<p style="color:gray;">Removed from Citizen View</p>'}
+                        ${!isDeleted && !isInProgress && !isResolved ? `
+                            <button onclick="updateIssueStatus('${issue.id}', 'In Progress')" style="background:#2563eb; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">Set In Progress</button>
+                        ` : ''}
+
+                        ${!isDeleted && !isResolved ? `
+                            <button onclick="updateIssueStatus('${issue.id}', 'Resolved')" style="background:#16a34a; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">Set Resolved</button>
+                        ` : ''}
+
+                        ${!isDeleted ? `
+                            <button onclick="updateIssueStatus('${issue.id}', 'Deleted')" style="background:#dc2626; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer; margin-left:auto;">Delete</button>
+                        ` : '<p style="color:gray;">Removed from Citizen View</p>'}
+                    </div>
                 `;
                 adminList.appendChild(div);
             });
