@@ -3,40 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CitySudhar | Report. Resolve. Relax.</title>
+    <title>CitySudhar | Home</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* 1. RESET & BASE - NO CHANGES */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #cbd5e1; overflow-x: hidden; }
+
+        /* 2. HEADER SECTION - NO CHANGES */
+        .header-section {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), 
+                        url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            padding: 110px 20px 130px; 
+            text-align: center;
+            color: white;
+            display: block;
+        }
+        
+        .brand-name { 
+            font-size: 4.2rem; 
+            font-weight: 900; 
+            letter-spacing: -1px;
+            color: #2563eb; 
+            -webkit-text-stroke: 1.5px white;
+            paint-order: stroke fill;
+            stroke-linejoin: round;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+            margin-bottom: 10px;
+        }
+
+        .tagline { 
+            font-size: 1.2rem; 
+            color: white; 
+            font-weight: 600;
+            margin-bottom: 35px; 
+        }
+
+        /* 3. TOP BUTTONS - SYNCED HOVER EFFECTS */
+        .top-buttons a {
+            display: inline-block;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin: 0 12px;
+            transition: all 0.3s ease;
+        }
+
+        /* Both buttons now share the same hover style as Authority Portal */
+        .report-btn { 
+            background: #2563eb; 
+            color: white; 
+            border: 2px solid #2563eb; 
+        }
+        .report-btn:hover { 
+            background: white; 
+            color: #1e293b; 
+            transform: translateY(-3px); 
+            border-color: white; 
+        }
+        
+        .admin-btn { 
+            background: rgba(255,255,255,0.1); 
+            color: white; 
+            border: 2px solid white; 
+            backdrop-filter: blur(5px); 
+        }
+        .admin-btn:hover { 
+            background: white; 
+            color: #1e293b; 
+            transform: translateY(-3px); 
+        }
+
+        /* 4. SUMMARY CARDS - INCREASED FONT SIZE */
+        .summary-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 12px;
+            max-width: 900px;
+            margin: -60px auto 0; 
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .summary-item {
+            padding: 18px 12px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        
+        .summary-item:hover { 
+            transform: scale(1.05) translateY(-5px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Increased font size for summary numbers */
+        .summary-item div { font-size: 2.2rem; font-weight: 800; margin-top: 5px; }
+        /* Increased font size for summary labels */
+        .summary-item small { text-transform: uppercase; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; }
+
+        .total-card { background: #1e293b; }      
+        .pending-card { background: #f59e0b; }    
+        .progress-card { background: #2563eb; }   
+        .resolved-card { background: #16a34a; }   
+
+        /* 5. MIDDLE CONTENT & SLIGHTLY TALLER ISSUE CARDS */
+        .middle-content {
+            background-color: #cbd5e1; 
+            padding: 100px 20px 100px; 
+            margin-top: 0;
+            border: none;
+        }
+        
+        .issue-grid-container {
+            max-width: 1600px; 
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(650px, 1fr)); 
+            gap: 35px; 
+        }
+        
+        .issue-card {
+            background: white;
+            padding: 40px 30px; /* Slightly increased vertical padding for height */
+            border-radius: 20px; 
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            color: #1e293b;
+            transition: all 0.3s ease;
+            /* Increased Font Size for Content */
+            font-size: 1.45rem; 
+        }
+
+        /* Issue Title - NO CHANGES per request */
+        .issue-card h3 {
+            font-size: 1.8rem; 
+            margin-bottom: 12px;
+            color: #1e293b;
+            font-weight: 800;
+        }
+
+        .issue-card p {
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        /* 6. FOOTER - NO CHANGES */
+        .footer-quote {
+            background: #0f172a;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            border: none;
+        }
+        .quote-text { font-size: 1.4rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+        .quote-author { display:block; margin-top:15px; font-weight:700; color:#3b82f6; }
+    </style>
 </head>
 <body>
+
     <header class="header-section">
         <h1 class="brand-name">CitySudhar</h1>
         <p class="tagline">Report. Resolve. Relax.</p>
         <div class="top-buttons">
-            <a href="report.html">Report an Issue</a>
-            <a href="admin.html" style="background: var(--secondary);">Authority Portal</a>
+            <a href="report.html" class="report-btn">Report an Issue</a>
+            <a href="admin.html" class="admin-btn">Authority Portal</a>
         </div>
     </header>
 
     <div id="status-summary" class="summary-bar">
-        <div class="summary-item">
+        <div class="summary-item total-card">
             <small>Total Issues</small>
-            <div id="totalCount" style="font-size: 1.5rem; font-weight: 800;">0</div>
+            <div id="totalCount">0</div>
         </div>
-        <div class="summary-item pending">
+        <div class="summary-item pending-card">
             <small>Pending</small>
-            <div id="pendingCount" style="font-size: 1.5rem; font-weight: 800; color: var(--warning);">0</div>
+            <div id="pendingCount">0</div>
         </div>
-        <div class="summary-item in-progress">
+        <div class="summary-item progress-card">
             <small>In Progress</small>
-            <div id="progressCount" style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">0</div>
+            <div id="progressCount">0</div>
         </div>
-        <div class="summary-item resolved">
+        <div class="summary-item resolved-card">
             <small>Resolved</small>
-            <div id="resolvedCount" style="font-size: 1.5rem; font-weight: 800; color: var(--success);">0</div>
+            <div id="resolvedCount">0</div>
         </div>
     </div>
 
-    <div id="issueList" class="issue-grid-container"></div>
+    <div class="middle-content">
+        <div id="issueList" class="issue-grid-container"></div>
+    </div>
 
     <footer class="footer-quote">
         <p class="quote-text">"I want to make this world a better place to live in... I don't want to be a silent spectator."</p>
