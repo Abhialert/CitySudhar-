@@ -4,6 +4,9 @@ https://abhialert.github.io/CitySudhar/
 
 A community-driven platform where citizens can report local issues and authorities can track, update, and resolve them transparently.
 
+ID: admin
+Password : city123
+
 ## Features
 - Citizen issue reporting (category, location, description)
 - Live status visibility for citizens
